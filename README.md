@@ -16,7 +16,7 @@ The `kubectl-jump-box` is a specialized temporary Kubernetes pod designed to ass
 1. To deploy the jump-box in your Kubernetes cluster, run the following command:
 
     ```shell
-    kubectl run -i --tty jump-box --image=ghcr.io/milapj/kubectl-jump-box:latest -n my-app
+    kubectl run -i --tty jump-box --image=ghcr.io/milapj/kubectl-jump-box:0.0.13 -n my-app
     ```
 
    This will create an interactive pod named `jump-box` within the `my-app` namespace.
@@ -32,7 +32,7 @@ Some of the scenarios in which `kubectl-jump-box` can be useful :
   - Service discovery is a fundamental element within the Kubernetes architecture, enabling the proper distribution of incoming traffic to the appropriate workloads within the cluster. DNS is instrumental in facilitating this mechanism. Gaining a comprehension of Kubernetes' DNS and service discovery mechanisms is beneficial for troubleshooting potential problems.
 
     ```shell
-    kubectl run -i --tty jump-box --image=ghcr.io/milapj/kubectl-jump-box:latest -n my-app
+    kubectl run -i --tty jump-box --image=ghcr.io/milapj/kubectl-jump-box:0.0.13 -n my-app
 
     bash-5.2$ nslookup service1
 
@@ -47,7 +47,7 @@ Some of the scenarios in which `kubectl-jump-box` can be useful :
 
 - **Permission Verification**: Verify if a service account has the required permissions for specific cluster operations. For example, if your Pod has to connect to a particular S3 bucket or to a particular image registry -
     ```shell
-    kubectl run -i --tty jump-box --image=ghcr.io/milapj/kubectl-jump-box:latest --serviceaccount='my-app-sa' -n my-app
+    kubectl run -i --tty jump-box --image=ghcr.io/milapj/kubectl-jump-box:0.0.13 --serviceaccount='my-app-sa' -n my-app
     
     bash-5.2$ aws s3 ls get-object --bucket my-bucket
     ```
