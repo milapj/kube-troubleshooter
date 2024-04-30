@@ -1,11 +1,11 @@
-FROM --platform=linux/amd64 alpine:3.14
+FROM --platform=linux/amd64 amazonlinux:2023
 
 SHELL ["/bin/sh", "-exc"]
 WORKDIR /usr/local
-
 RUN \
-    apk upgrade; \
-    apk add --no-cache dumb-init bind-tools vim curl unzip less jq tmux
+    yum update -y; \
+    yum install -y dnsutils vim unzip less jq tmux postgresql15; \
+    yum clean all
 
 RUN \
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; \
@@ -15,11 +15,9 @@ RUN \
 
 RUN \
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"; \
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"; \
-    echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c; \
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256" ; \
+    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check; \
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl ; \
     kubectl version --client
 
-
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD /bin/bash
+ENTRYPOINT ["/bin/bash"]
