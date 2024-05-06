@@ -5,10 +5,7 @@ The `kube-troubleshooter` is a specialized temporary Kubernetes pod designed to 
 ## Features
 
 - **Pre-configured Tools**: Comes with commonly used CLI tools such as `awscli-v2`, `kubectl`, `dnsutils`, `jq`, `tmux`, `psql`, and `pg_dump`.
-- **Multi-Arch Support**: The `kube-troubleshooter` is built to support multiple architectures, ensuring compatibility across various environments. `buildx` command - 
-  - ```shell
-    docker buildx build . -t ghcr.io/milapj/kube-troubleshooter:0.0.14 --platform linux/amd64,linux/arm64/v8,linux/arm/v7  --provenance=false --push
-    ```
+- **Multi-Arch Support**: The `kube-troubleshooter` is built to support multiple architectures, ensuring compatibility across various environments. 
 - **Immediate Access**: Easily accessible within the Kubernetes cluster, providing an on-demand debugging environment.
 
 ## Installation

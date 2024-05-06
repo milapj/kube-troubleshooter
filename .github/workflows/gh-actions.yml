@@ -1,0 +1,20 @@
+name: gh-actions
+run-name: Publish a new ghcr release
+on: [push]
+jobs:
+    build-multi-arch-docker-image:
+        runs-on: ubuntu-latest
+        steps:
+          - 
+            name: Checkout ${{ github.repository }}
+            uses: actions/checkout@v4
+          - 
+            name: Set up QEMU
+            uses: docker/setup-qemu-action@v3
+          - 
+            name: Setup Docker Buildx
+            uses: docker/setup-buildx-action@v3
+            with:
+                platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
+                provenance: false
+          - run: docker buildx build . -t ghcr.io/milapj/kube-troubleshooter:0.0.15 --platform $INPUT_PLATFORMS --provenance=$INPUT_PROVENANCE
